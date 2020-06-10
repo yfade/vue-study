@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <p>{{msg}}</p>
+    <p>{{msg.toUpperCase()}}</p>
+
+    <h2>强制数据绑定</h2>
+    <img style="width: 100px;height: 100px" :src="imgUrl">
+
+    <h3>事件绑定</h3>
+    <button @click="test">btn1</button>
+    <button @click="test()">btn2</button>
+    <button @click="test('skdjfk')">btn3</button>
+    <button @click="test(msg)">btn4</button>
+    <button @click="test(msg.toUpperCase())">btn5</button>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            msg:'i am dopa!',
+            imgUrl:'https://cn.vuejs.org/images/logo.png',
+        },
+        methods:{
+            test(msg){
+                alert(msg);
+            }
+        }
+    })
+</script>
+</body>
+</html>
