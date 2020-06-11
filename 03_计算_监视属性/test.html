@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    姓：<input type="text" v-model="firstName"><br>
+    名：<input type="text" v-model="lastName"><br>
+    姓名1：<input type="text" v-model="fullName1"><br>
+    姓名2：<input type="text" v-model="fullName2"><br>
+    姓名3：<input type="text" v-model="fullName3"><br>
+    姓名4：<input type="text" v-model="fullName4"><br>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            firstName: 'A',
+            lastName: 'B',
+            fullName2: 'A B',
+            fullName4: 'C D'
+        },
+        computed: {
+            //监视属性 默认为get函数，返回该属性的值，有缓存
+            //执行：1 初始化，2 所依赖的属性发生变化时
+            fullName1() {
+                console.log('fullName1')
+                return this.firstName + ' ' + this.lastName;
+            },
+            fullName3: {
+                get() {
+                    return this.firstName + ' ' + this.lastName;
+                },
+                //监视作用，相当于监视属性。当该属性值发生变化时执行
+                set(val) {
+                    const arr = val.split(' ');
+                    this.firstName = arr[0];
+                    this.lastName = arr[1];
+                }
+            }
+        },
+        watch: {
+            firstName(newVal, oldVal) {
+                this.fullName2 = newVal + ' ' + this.lastName;
+            },
+            //在底下通过$watch方法实现
+            /*lastName(newVal) {
+                this.fullName2 = this.firstName + ' ' + newVal;
+            }*/
+            fullName4(val) {
+                const arr = val.split(' ');
+                this.firstName = arr[0];
+                this.lastName = arr[1];
+            }
+        }
+    });
+    vm.$watch('lastName', function (newVal, oldVal) {
+        this.fullName2 = this.firstName + ' ' + newVal;
+    })
+</script>
+</body>
+</html>
