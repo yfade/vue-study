@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        .c1 {
+            color: blue;
+        }
+
+        .c2 {
+            font-size: 20px;
+        }
+
+        .c3 {
+            font-size: 30px;
+        }
+
+        .c4 {
+            font-weight: bolder;
+        }
+
+        .c5 {
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <h2>class绑定： :class="xxx"</h2>
+    <p class="c1" :class="pc1">xxx是字符串</p>
+    <button @click="updateClass">切换</button>
+
+    <p class="c1" :class="{c4:c4Active,c5:c5Active}">xxx是对象</p>
+    <button @click="updateClass1">切换</button>
+
+    <p class="c1" :class="[pc2,pc3]">xxx是数组</p>
+    <button @click="updateClass2">切换</button>
+    <hr>
+    <h2>style绑定： :style="{}"</h2>
+    <p :style="{color:s1,fontSize:s2+'px'}">style绑定 :style="{color:s1,font-size=s2+'px'}</p>
+    <button @click="updateStyle(40)">切换</button>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            pc1: 'c2',
+            c4Active: true,
+            c5Active: false,
+            pc2: 'c2',
+            pc3: 'c3',
+            s1: 'green',
+            s2: 10
+        },
+        methods: {
+            updateClass() {
+                this.pc1 = 'c3';
+            },
+            updateClass1() {
+                this.c4Active = !this.c4Active;
+                this.c5Active = !this.c5Active;
+            },
+            updateClass2() {
+                this.pc2 = 'c4';
+                this.pc3 = 'c5';
+            },
+
+
+            updateStyle(fontSize) {
+                this.s1 = 'yellow';
+                this.s2 = fontSize;
+            }
+        }
+    })
+</script>
+</body>
+</html>
