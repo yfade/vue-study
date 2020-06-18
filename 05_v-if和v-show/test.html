@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+    v-if和v-show区别：
+    v-if通过移除元素来控制隐藏
+    v-show通过修改display样式来控制隐藏
+
+    使用：对于需要频繁切换显示隐藏的可以通过v-show控制
+-->
+<div id="app">
+    <p v-if="ok">成功了</p>
+    <p v-else>失败了</p>
+
+    <p v-show="ok">表白成功了</p>
+    <p v-show="!ok">表白失败了</p>
+
+    <button @click="ok=!ok">切换</button>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            ok: true
+        }
+    })
+</script>
+</body>
+</html>

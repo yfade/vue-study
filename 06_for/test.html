@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <!--
+    变更方法
+        Vue 将被侦听的数组的变更方法进行了包裹，所以它们也将会触发视图更新。这些被包裹过的方法包括：
+        push()
+        pop()
+        shift()
+        unshift()
+        splice()
+        sort()
+        reverse()
+    -->
+    <h2>遍历数组</h2>
+    <ul>
+        <li v-for="(item,index) in persons" :key="index">
+            {{index}}---{{item.name}}---{{item.age}}---
+            <button @click="deleteP(index)">删除</button>
+            <button @click="updateP(index,{name:'paper',age:21})">修改</button>
+        </li>
+    </ul>
+
+    <ul>
+        <li v-for="(item,index) in persons" :key="index">
+            {{index+'---'+item.name+'---'+item.age}}
+        </li>
+    </ul>
+
+    <hr>
+    <h2>遍历对象</h2>
+    <ul>
+        <li v-for="(value,key,index) in persons[1]">
+            {{index}}---{{key}}---{{value}}
+        </li>
+    </ul>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            persons: [
+                {name: 'tom', age: 13},
+                {'name': 'jerry', 'age': 15},
+                {'name': 'tony', 'age': 20},
+            ]
+        },
+        methods: {
+            deleteP(index) {
+                this.persons.splice(index, 1);
+            },
+            updateP(index, newP) {
+                this.persons.splice(index, 1, newP);
+            }
+        }
+    })
+</script>
+</body>
+</html>
