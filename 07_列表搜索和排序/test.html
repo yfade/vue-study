@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+    <input type="text" v-model="searchWord">
+    <ul>
+        <li v-for="(item,index) in filterPersons" :key="index">
+            {{item.name}}---{{item.age}}
+        </li>
+    </ul>
+    <button @click="setOrderType(0)">默认排序</button>
+    <button @click="setOrderType(1)">升序排序</button>
+    <button @click="setOrderType(2)">降序排序</button>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            searchWord: '',
+            orderType: 0,
+            persons: [
+                {name: 'zhangsan', age: 13},
+                {name: 'lisi', age: 11},
+                {name: 'wangwu', age: 15},
+                {name: 'zhaoliu', age: 14},
+            ]
+        },
+        computed: {
+            filterPersons() {
+                const {searchWord, persons, orderType} = this;
+                let fPersons;
+                /*if (searchWord === '') {
+                    fPersons = persons;
+                } else {*/
+                    fPersons = persons.filter(p => {
+                        return p.name.indexOf(searchWord) > -1;
+                    });
+                // }
+
+                if (fPersons.length > 0 && orderType !== 0) {
+                    fPersons.sort(function (p1, p2) {
+                        if (orderType === 1) {
+                            return p1.age - p2.age;
+                        } else {
+                            return p2.age - p1.age;
+                        }
+                    })
+                }
+                return fPersons;
+            },
+        },
+        methods: {
+            setOrderType(orderType) {
+                this.orderType = orderType;
+            },
+
+        }
+
+    })
+</script>
+</body>
+</html>
