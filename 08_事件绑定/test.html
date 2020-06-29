@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <p>1.事件绑定</p>
+    <button @click="test1">test1</button>
+    <button @click="test2('kkk')">test2</button>
+    <!--默认传递事件参数-->
+    <button @click="test3">test3</button>
+    <!--注意 需要主动传递 $event-->
+    <button @click="test4(123,$event)">test4</button>
+
+    <p>2.事件修饰符</p>
+    <div style="width: 200px;height: 200px;background: red" @click="test5">
+        <!--@click.stop 阻止事件冒泡-->
+        <div style="width: 100px;height: 100px;background: blue" @click.stop="test6"></div>
+    </div>
+
+    <!--.prevent 阻止默认事件-->
+    <a href="http://www.baidu.com" @click.prevent="test7">去百度</a>
+
+    <p>3.按键修饰符</p>
+    <input @keyup.enter="test8">
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        methods: {
+            test1() {
+                alert('test1');
+            },
+            test2(msg) {
+                alert(msg)
+            },
+            test3(event) {
+                alert(event.target.innerHTML);
+            },
+            test4(msg, event) {
+                alert(msg + '-------------' + event.target.innerHTML);
+            },
+            test5() {
+                alert('out');
+            },
+            test6() {
+                alert('inner');
+            },
+            test7() {
+                alert('去百度');
+            },
+            test8(event) {
+                alert(event.target.value+'-----------'+event.key);
+            }
+        }
+    })
+</script>
+</body>
+</html>
