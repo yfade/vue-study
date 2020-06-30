@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <form @submit.prevent="sub">
+        <!--注意 v-model .lazy,.number,.trim修饰符-->
+        <span>用户名：</span>
+        <input type="text" v-model.lazy="userName"><br>
+        <span>年龄</span>
+        <input type="number" v-model.number="age"><br>
+        <span>性别：</span>
+        <input type="radio" value="男" v-model="sex">
+        <label>男</label>
+        <input type="radio" value="女" v-model="sex">
+        <label>女</label><br>
+        <span>爱好</span>
+        <input type="checkbox" value="basketball" v-model="hobby">
+        <span>篮球</span>
+        <input type="checkbox" value="football" v-model="hobby">
+        <span>足球</span>
+        <input type="checkbox" value="pingpong" v-model="hobby">
+        <span>乒乓球</span><br>
+        <span>省份</span>
+        <select v-model="province">
+            <option :value="item.code" v-for="(item,index) in provinces" :key="index">{{item.name}}</option>
+        </select><br>
+        <span>描述</span>
+        <textarea v-model="description"></textarea>
+        <br>
+        <button type="submit">提交</button>
+    </form>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            userName: '',
+            age: '',
+            sex: '男',
+            hobby: ['pingpong'],
+            province: '002',
+            description: 'fds',
+            provinces: [{code: '001', name: '北京'}, {code: '002', name: '上海'}, {code: '003', name: '广东'}]
+        },
+        methods: {
+            sub() {
+                alert('hello!!!')
+            }
+        }
+    })
+</script>
+</body>
+</html>
