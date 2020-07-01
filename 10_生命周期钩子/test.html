@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <button @click="destroy">销毁vm</button>
+    <p v-show="isShow">w哦不配</p>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            isShow: true,
+        },
+        methods: {
+            destroy() {
+                this.$destroy();
+            }
+        },
+        mounted() {
+            this.intervalId = setInterval(() => {
+                console.log('setInterval...')
+                this.isShow = !this.isShow;
+            }, 1000);
+        },
+        beforeDestroy() {
+            alert(this.intervalId)
+            clearInterval(this.intervalId);
+        }
+    })
+</script>
+</body>
+</html>
