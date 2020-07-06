@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        /*利用vue页面渲染完成后指令会消失的特性*/
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <p ref="pContent">早班火车</p>
+    <button @click="showP">显示</button>
+    <!--注意v-cloak 用来防止{{msg}}闪烁-->
+    <p v-cloak>{{msg}}</p>
+
+    <!--v-text 没有闪烁问题-->
+    <p v-text="msg"></p>
+</div>
+
+<!--自定义指令-->
+<div id="app1">
+    <p v-text="msg1"></p>
+    <p v-upper-text="msg1"></p>
+    <p v-lower-text="msg1"></p>
+</div>
+
+<div id="app2">
+    <p v-text="msg2"></p>
+    <p v-upper-text="msg2"></p>
+    <p v-lower-text="msg2"></p>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+    // alert('kkkk')
+    new Vue({
+        el: '#app',
+        data: {
+            msg: '期待与你相遇'
+        },
+        methods: {
+            showP() {
+                let pContent = this.$refs.pContent.innerHTML;
+                alert(pContent)
+            }
+        }
+    });
+
+    //全局自定义指令
+    Vue.directive('upper-text', function (el, binding) {
+        console.log(el, binding)
+        el.textContent = binding.value.toUpperCase();
+    })
+    new Vue({
+        el: '#app1',
+        data: {
+            msg1: 'I am Dopa',
+        },
+        //局部自定义指令
+        directives: {
+            'lower-text': function (el, bingding) {
+                el.textContent = bingding.value.toLowerCase();
+            }
+        }
+    });
+    new Vue({
+        el: '#app2',
+        data: {
+            msg2: 'Hello Ten'
+        },
+        directives: {
+            'lower-text':function (el, bingding) {
+                el.textContent=bingding.value.split('').reverse().join('').toString();
+            }
+        }
+    })
+</script>
+</body>
+</html>

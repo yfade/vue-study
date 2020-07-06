@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+    插件：moment,bootcdn
+-->
+<div id="app">
+    默认：<p>{{date}}</p>
+    <!--默认date为formatDate的第一个参数-->
+    <!--过滤器可以用在两个地方：双花括号插值和 v-bind 表达式-->
+    过滤器：<p>{{date|formatDate}}</p>
+    过滤器日期：<p>{{date|formatDate('YYYY-MM-DD')}}</p>
+    过滤器时间：<p>{{date|formatDate('HH:mm:ss')}}</p>
+</div>
+<script src="../js/vue.js"></script>
+<!--<script src="../js/moment.js"></script>-->
+<script src="https://cdn.bootcdn.net/ajax/libs/moment.js/2.27.0/moment.js"></script>
+<script>
+    //全局自定义过滤器
+    Vue.filter('formatDate', function (value, format) {
+        return moment(value).format(format || 'YYYY-MM-DD HH:mm:ss');
+    })
+    new Vue({
+        el: '#app',
+        data: {
+            date: new Date()
+        },
+        //局部自定义过滤器
+        filters: {
+            capitalize: function (value) {
+                if (!value) return ''
+                value = value.toString()
+                return value.charAt(0).toUpperCase() + value.slice(1)
+            }
+        }
+    });
+
+
+</script>
+</body>
+</html>
