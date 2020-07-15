@@ -23,6 +23,7 @@
             }
         },
         mounted() {
+            //为了避免回调函数中this不视vm实列，所以回调函数都用箭头函数格式
             this.intervalId = setInterval(() => {
                 console.log('setInterval...')
                 this.isShow = !this.isShow;
